@@ -1,0 +1,22 @@
+{
+  "name": "devtree",
+  "version": "1.0.0",
+  "description": "mi primer proyecto con express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisFerVR/Express-con-Vite-y-react-en-el-front.git"
+  },
+  "author": "Luis Fernando Vergara Ruiz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisFerVR/Express-con-Vite-y-react-en-el-front/issues"
+  },
+  "homepage": "https://github.com/LuisFerVR/Express-con-Vite-y-react-en-el-front#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
