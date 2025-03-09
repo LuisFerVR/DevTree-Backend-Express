@@ -1,5 +1,6 @@
 {
   "name": "devtree",
+  "type": "module",
   "version": "1.0.0",
   "description": "mi primer proyecto con express",
   "main": "index.js",
