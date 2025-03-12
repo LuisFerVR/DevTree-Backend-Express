@@ -20,11 +20,11 @@
   },
   "homepage": "https://github.com/LuisFerVR/Express-con-Vite-y-react-en-el-front#readme",
   "dependencies": {
-    "express": "^4.21.2",
-    "nodemon": "^3.1.9"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "nodemon": "^3.1.9"
   }
 }

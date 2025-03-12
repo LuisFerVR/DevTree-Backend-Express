@@ -2,10 +2,10 @@ import {Router} from 'express';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.send('Hola mundo desde express')
+//autentificación y registro
+router.post('/auth/register', (req, resp) => {
+    console.log(req.body);
+    
 })
 
-router.get('/ecommerce', (req, res) => {
-    res.send('Hola mundo desde ecommerce')
-})
+export default router; // Exportamos la app para poder importarla en otro archivo
