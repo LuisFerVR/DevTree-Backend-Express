@@ -1,5 +1,6 @@
 import User from "../models/User";
 import { Request, Response } from "express";
+import { HashPassword } from "../utils/auth";
 
 export const UserAccount = async (req:Request, res:Response) => {
 
@@ -13,6 +14,7 @@ export const UserAccount = async (req:Request, res:Response) => {
     }
 
     const user = new User(req.body);
+    user.password = await HashPassword(req.body.password);
     await user.save();
 
     res.send("Registro exitoso");
