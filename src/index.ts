@@ -1,8 +1,9 @@
 import server from './server';
 import colors from 'colors';
 
-const port = process.env.port || 4000;
+const port = 4000;
 try {
+  
     server.listen(port, '0.0.0.0', () => {
       console.log(colors.bgBlue.white.bold.italic(`Servidor corriendo en el puerto: ${port}`));
     });
