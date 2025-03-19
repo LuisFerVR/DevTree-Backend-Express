@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import { body } from 'express-validator';
-import { UserAccount } from './handlers';
+import { login, UserAccount } from './handlers';
 
 const router = Router();
 
@@ -18,6 +18,18 @@ router.post('/auth/register',
     body('password')
         .isLength({min : 8})
         .withMessage('La contraseña debe tener al menos 8 caracteres')
-    ,UserAccount)
+    ,UserAccount
+);
+
+router.post('/auth/login',
+    body('email')
+    .isEmail()
+    .withMessage('El correo no es valido'),
+    body('password')
+    .notEmpty()
+    .withMessage('Ingrese una contraseña valida'),
+    login
+);
+
 
 export default router; // Exportamos la app para poder importarla en otro archivo
