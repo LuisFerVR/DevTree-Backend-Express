@@ -2,6 +2,7 @@ import User from "../models/User";
 import { Request, Response } from "express";
 import { checkPassword, HashPassword } from "../utils/auth";
 import slug from "slug";
+import { generateToken } from "../utils/jwt";
 
 export const UserAccount = async (req:Request, res:Response) => {
 
@@ -40,5 +41,6 @@ export const login = async (req: Request, res: Response) => {
         return;
     }
 
-    res.status(200).json({ message: "Login exitoso" });
+    const token = generateToken({id: user._id})
+    res.send(token);
 };
