@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { checkPassword, HashPassword } from "../utils/auth";
 import slug from "slug";
 import { generateToken } from "../utils/jwt";
-
 export const UserAccount = async (req:Request, res:Response) => {
 
     //await User.create(req.body);
@@ -44,3 +43,7 @@ export const login = async (req: Request, res: Response) => {
     const token = generateToken({id: user._id})
     res.send(token);
 };
+
+export const getUser = async (req:Request, res:Response) => {
+    res.json(req.user);
+}
