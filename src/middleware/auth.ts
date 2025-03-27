@@ -15,7 +15,7 @@ export const authenticate = async (req:Request, res:Response, next: NextFunction
 
     if(!bearer){
         const error = new Error("No tienes autorización");
-        res.status(401).json({error: error.message});
+        return res.status(401).json({error: error.message});
     }
 
     const [, token ] = bearer.split(' ');
