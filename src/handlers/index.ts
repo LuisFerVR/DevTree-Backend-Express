@@ -10,6 +10,11 @@ export const UserAccount = async (req:Request, res:Response) => {
     const userExist = await User.findOne({email: req.body.email});
 
     const handle = slug(req.body.handle,'');
+    const handleExist = await User.findOne({handle});
+    if(handleExist) {
+        const error = new Error('Nombre de usuario no disponible');
+        return res.status(409).json({error: error.message});
+    }
 
     if (userExist) {
         res.status(409).json({ error: "El correo ya existe" });
@@ -46,4 +51,27 @@ export const login = async (req: Request, res: Response) => {
 
 export const getUser = async (req:Request, res:Response) => {
     res.json(req.user);
+}
+
+export const updateProfile = async (req:Request, res:Response) => {
+    try {
+        const {description} = req.body;
+
+        const handle = slug(req.body.handle,'');
+        const handleExist = await User.findOne({handle});
+        if(handleExist && handleExist.email !== req.user.email) {
+            const error = new Error('Nombre de usuario no disponible');
+            return res.status(409).json({error: error.message});
+        }
+
+        //Actualizar el perfil del usuario
+        req.user.handle = handle;
+        req.user.description = description;
+        await req.user.save();
+        res.send("Peril actaulizado correctamente");
+        
+    } catch (e) {
+        const error = new Error("Error al actualizar el perfil");
+        return res.status(500).json({ error: error.message });
+    }
 }

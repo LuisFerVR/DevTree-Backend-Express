@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { handleInputErrors } from './middleware/validation';
-import { UserAccount, getUser, login } from './handlers';
+import { UserAccount, getUser, login, updateProfile } from './handlers';
 import { authenticate } from './middleware/auth';
 
 const router = Router();
@@ -36,5 +36,17 @@ router.post('/auth/login',
 );
 
 router.get('/user',authenticate,getUser);
+
+router.patch('/user',
+    body('handle')
+        .notEmpty()
+        .withMessage('El handle no puede ir vacío'),
+    body('description')
+        .notEmpty()
+        .withMessage('La descripción no puede ir vacío'),
+    handleInputErrors,
+    authenticate,
+    updateProfile
+)
 
 export default router;
