@@ -2,7 +2,11 @@ import User from "../models/User";
 import { Request, Response } from "express";
 import { checkPassword, HashPassword } from "../utils/auth";
 import slug from "slug";
+import formidable from "formidable";
+import { v4 as uuidv4 } from "uuid";
 import { generateToken } from "../utils/jwt";
+import cloudinary from "../config/cloudinary";
+
 export const UserAccount = async (req:Request, res:Response) => {
 
     //await User.create(req.body);
@@ -69,6 +73,29 @@ export const updateProfile = async (req:Request, res:Response) => {
         req.user.description = description;
         await req.user.save();
         res.send("Peril actaulizado correctamente");
+        
+    } catch (e) {
+        const error = new Error("Error al actualizar el perfil");
+        return res.status(500).json({ error: error.message });
+    }
+}
+
+export const uploadImage = async (req:Request, res:Response) => {
+
+    try {
+        const form = formidable({multiples : false});
+        form.parse(req, (error,fields,files) => {
+            cloudinary.uploader.upload(files.file[0].filepath,{public_id:uuidv4()}, async function (error,result) {
+                if (error) {
+                    return res.status(500).json({ error: "Error al subir la imagen" });
+                }
+                if (result) {
+                    req.user.image = result.secure_url;
+                    await req.user.save();
+                    res.json({ image: result.secure_url });
+                }
+            });
+        });
         
     } catch (e) {
         const error = new Error("Error al actualizar el perfil");
