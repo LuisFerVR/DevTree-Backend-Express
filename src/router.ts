@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { handleInputErrors } from './middleware/validation';
-import { UserAccount, getUser, getUserByHandle, login, updateProfile, uploadImage } from './handlers';
+import { UserAccount, getUser, getUserByHandle, login, searchByHandle, updateProfile, uploadImage } from './handlers';
 import { authenticate } from './middleware/auth';
 
 const router = Router();
@@ -53,4 +53,10 @@ router.post('/user/image',authenticate,uploadImage)
 
 router.get('/:handle',getUserByHandle);
 
+router.post('/search',
+    body('handle')
+        .notEmpty()
+        .withMessage('El handle no puede ir vacío'),
+    handleInputErrors,
+    searchByHandle);
 export default router;
