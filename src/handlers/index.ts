@@ -125,11 +125,11 @@ export const searchByHandle = async(req: Request, res: Response) => {
         const userExist = await User.findOne({handle});
         if (userExist) {
             const error = new Error(`${handle} ya está registrado`);
-            return res.status(404).json({ error: error.message });
+            return res.status(403).json({ error: error.message });
         }
-        res.sned(`${handle} está disponible`);
+        res.send(`${handle} está disponible`);
     } catch (e) {
-        const error = new Error("Error al actualizar el perfil");
+        const error = new Error("Error al buscar la disponibilidad del handle");
         return res.status(500).json({ error: error.message });
     }
     
